@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ $# -ne 2 ]; then
+	echo "USAGE: $0 startDate endDate"
+	exit 1
+fi
+
+startDate=`date +%Y%m%d -d $1` || echo "error: invalid startDate"
+endDate=`date +%Y%m%d -d $2` || echo "error: invalid endDate"
+
+if [ -z "$startDate" ] || [ -z "$endDate" ]; then
+	exit 1
+fi
+
+while [ $startDate -le $endDate ]; do
+	echo $startDate
+	startDate=`date +%Y%m%d -d "$startDate+1day"`
+done
+
+exit
