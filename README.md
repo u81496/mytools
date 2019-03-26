@@ -4,18 +4,32 @@
 
 ### How to Use
 ```
-$ ./dateseq start_date end_date
+$ ./dateseq endDate
+$ ./dateseq startDate endDate
+$ ./dateseq startDate increment endDate
 ```
 
 #### example
 ```
+$ ./dateseq 20190115
+(TODAY)
+(TOMORROW)
+...
+20190114
+20190115
+
 $ ./dateseq 20190101 20190115
 20190101
 20190102
+...
+20190114
+20190115
+
+$ ./dateseq 20190101 2 20190115
+20190101
 20190103
 ...
 20190113
-20190114
 20190115
 ```
 
