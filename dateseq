@@ -1,40 +1,40 @@
 #!/bin/bash
 if [ $# -eq 1 ]; then
-	startDate=`date +%Y%m%d`
-	increment=1
-	endDate=`date +%Y%m%d -d $1` || echo "error: invalid endDate"
+  startDate=`date +%Y%m%d`
+  increment=1
+  endDate=`date +%Y%m%d -d $1` || echo "error: invalid endDate"
 elif [ $# -eq 2 ]; then
-	startDate=`date +%Y%m%d -d $1` || echo "error: invalid startDate"
-	increment=1
-	endDate=`date +%Y%m%d -d $2` || echo "error: invalid endDate"
+  startDate=`date +%Y%m%d -d $1` || echo "error: invalid startDate"
+  increment=1
+  endDate=`date +%Y%m%d -d $2` || echo "error: invalid endDate"
 elif [ $# -eq 3 ]; then
-	startDate=`date +%Y%m%d -d $1` || echo "error: invalid startDate"
-	increment=`expr 0 + "$2"`
-	if [ $? -ge 2 ]; then
-		echo "error: invalid increment"
-	fi
-	endDate=`date +%Y%m%d -d $3` || echo "error: invalid endDate"
+  startDate=`date +%Y%m%d -d $1` || echo "error: invalid startDate"
+  increment=`expr 0 + "$2"`
+  if [ $? -ge 2 ]; then
+    echo "error: invalid increment"
+  fi
+  endDate=`date +%Y%m%d -d $3` || echo "error: invalid endDate"
 else
-	echo "USAGE: $0 endDate"
-	echo "USAGE: $0 startDate endDate"
-	echo "USAGE: $0 startDate increment endDate"
-	exit 1
+  echo "USAGE: $0 endDate"
+  echo "USAGE: $0 startDate endDate"
+  echo "USAGE: $0 startDate increment endDate"
+  exit 1
 fi
 
 if [ -z "$startDate" ] || [ -z "$increment" ] || [ -z "$endDate" ]; then
-	exit 1
+  exit 1
 fi
 
 if [ $increment -ge 0 ]; then
-	while [ $startDate -le $endDate ]; do
-		echo $startDate
-		startDate=`date +%Y%m%d -d "$startDate + $increment day"`
-	done
+  while [ $startDate -le $endDate ]; do
+    echo $startDate
+    startDate=`date +%Y%m%d -d "$startDate + $increment day"`
+  done
 else
-	while [ $startDate -ge $endDate ]; do
-		echo $startDate
-		startDate=`date +%Y%m%d -d "$startDate + $increment day"`
-	done
+  while [ $startDate -ge $endDate ]; do
+    echo $startDate
+    startDate=`date +%Y%m%d -d "$startDate + $increment day"`
+  done
 fi
 
 exit
