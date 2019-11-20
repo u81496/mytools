@@ -1,4 +1,23 @@
 #!/bin/bash
+COMMAND=`basename $0`
+
+usage_exit() {
+  echo "USAGE: $COMMAND [-s separator] [startDate [increment]] endDate" 1>&2
+  exit 1
+}
+
+SEPARATOR=""
+
+while getopts s: OPTION; do
+  case $OPTION in
+    s ) SEPARATOR="$OPTARG" ;;
+    * ) usage_exit ;;
+  esac
+done
+shift $(($OPTIND - 1))
+
+FORMAT="%Y$SEPARATOR%m$SEPARATOR%d"
+
 if [ $# -eq 1 ]; then
   startDate=`date +%Y%m%d`
   increment=1
@@ -15,10 +34,7 @@ elif [ $# -eq 3 ]; then
   fi
   endDate=`date +%Y%m%d -d $3` || echo "error: invalid endDate"
 else
-  echo "USAGE: $0 endDate"
-  echo "USAGE: $0 startDate endDate"
-  echo "USAGE: $0 startDate increment endDate"
-  exit 1
+  usage_exit
 fi
 
 if [ -z "$startDate" ] || [ -z "$increment" ] || [ -z "$endDate" ]; then
@@ -27,12 +43,12 @@ fi
 
 if [ $increment -ge 0 ]; then
   while [ $startDate -le $endDate ]; do
-    echo $startDate
+    echo `date +"$FORMAT" -d $startDate`
     startDate=`date +%Y%m%d -d "$startDate + $increment day"`
   done
 else
   while [ $startDate -ge $endDate ]; do
-    echo $startDate
+    echo `date +"$FORMAT" -d $startDate`
     startDate=`date +%Y%m%d -d "$startDate + $increment day"`
   done
 fi

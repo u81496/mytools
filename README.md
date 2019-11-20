@@ -4,33 +4,38 @@
 
 ### How to Use
 ```
-$ ./dateseq endDate
-$ ./dateseq startDate endDate
-$ ./dateseq startDate increment endDate
+$ ./dateseq [-s separator] [startDate [increment]] endDate
 ```
 
 #### example
 ```
-$ ./dateseq 20190115
+$ ./dateseq 20190215
 (TODAY)
 (TOMORROW)
 ...
-20190114
-20190115
+20190214
+20190215
 
-$ ./dateseq 20190101 20190115
+$ ./dateseq 20190101 20190215
 20190101
 20190102
 ...
-20190114
-20190115
+20190214
+20190215
 
-$ ./dateseq 20190101 2 20190115
+$ ./dateseq 20190101 2 20190215
 20190101
 20190103
 ...
-20190113
-20190115
+20190212
+20190214
+
+$ ./dateseq -s'-' 20190101 20190215
+2019-01-01
+2019-01-02
+...
+2019-02-14
+2019-02-15
 ```
 
 ## cron-checker
